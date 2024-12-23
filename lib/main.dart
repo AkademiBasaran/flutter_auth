@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/profilepage.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -18,6 +19,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: HomePage(),
     );
   }
@@ -50,10 +52,19 @@ class _HomePageState extends State<HomePage> {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Kullanıcı Firebase'e başarıyla eklendi")));
     });
-    
   }
 
-  login() {}
+  Future<void> login() async {
+    await FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+            email: userEmail.text, password: password.text)
+        .then((user) {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (_) => ProfilePage()),
+          (Route<dynamic> route) => false);
+    }).whenComplete(() => print("Giriş yapıldı"));
+  }
 
   @override
   Widget build(BuildContext context) {
