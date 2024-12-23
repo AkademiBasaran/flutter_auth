@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BlogPage extends StatefulWidget {
@@ -20,7 +18,7 @@ class _BlogPageState extends State<BlogPage> {
 
   getArticle() {
     FirebaseFirestore.instance
-        .collection("Articles")
+        .collection("articles")
         .doc(docId.text)
         .get()
         .then((response) {
@@ -38,7 +36,7 @@ class _BlogPageState extends State<BlogPage> {
 
   addArticle() {
     FirebaseFirestore.instance
-        .collection("Articles")
+        .collection("articles")
         .doc(title.text)
         .set(<String, dynamic>{
       'title': title.text,
@@ -51,7 +49,7 @@ class _BlogPageState extends State<BlogPage> {
 
   updateArticle() {
     FirebaseFirestore.instance
-        .collection("Articles")
+        .collection("articles")
         .doc(docId.text)
         .update(<String, dynamic>{
       'title': title.text,
@@ -64,7 +62,7 @@ class _BlogPageState extends State<BlogPage> {
 
   deleteArticle() {
     FirebaseFirestore.instance
-        .collection("Articles")
+        .collection("articles")
         .doc(docId.text)
         .delete()
         .whenComplete(() {
