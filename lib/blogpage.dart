@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -12,6 +13,8 @@ class _BlogPageState extends State<BlogPage> {
   TextEditingController title = TextEditingController();
   TextEditingController content = TextEditingController();
   TextEditingController docId = TextEditingController();
+
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   var responseTitle = "";
   var responseContent = "";
@@ -39,6 +42,7 @@ class _BlogPageState extends State<BlogPage> {
         .collection("articles")
         .doc(title.text)
         .set(<String, dynamic>{
+      'userId': auth.currentUser?.uid,    
       'title': title.text,
       'content': content.text
     }).whenComplete(() {

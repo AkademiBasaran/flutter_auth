@@ -82,7 +82,11 @@ class _HomePageState extends State<HomePage> {
                 controller: password,
                 decoration: InputDecoration(label: Text("Şifre")),
               ),
+              SizedBox(
+                height: 30.0,
+              ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton(onPressed: register, child: Text("Kayıt Ol")),
                   ElevatedButton(onPressed: login, child: Text("Giriş Yap")),
